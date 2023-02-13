@@ -1,0 +1,1307 @@
+﻿@using Business.Models;
+@using System.Linq;
+@model PageViewModel<HomePage>
+@{ var data = @Model.Data; }
+
+<section id="home_banner">
+    @if (data.Announcement != null && data.Announcement.Count > 0)
+    {
+<div class="banner_breadcrumb_container" style="display:none;">
+    <div class="breadcrumb_icon"><img src="~/Theming/Image/Icons/Icon - Announcement II.svg" alt="announcement" /></div>
+    <div class="bredcrumb_slider">
+        <div class="breadcrumb_list">
+            <ul>
+                @foreach (var announcement in data.Announcement)
+                {
+<li class="breadcrumb_item">@announcement?.Date: @announcement?.Title: @announcement?.Announcement</li>}
+            </ul>
+        </div>
+
+        <div class="breadcrumb_nav">
+            <button id="breadcrumb_prev" class="nav_button prev">
+                <img src="~/Theming/Image/Icons/Icon - Previous.svg" alt="previous"/>
+            </button>
+            <button id="breadcrumb_next" class="nav_button next">
+                <img src="~/Theming/Image/Icons/Icon - Next.svg" alt="next"/>
+            </button>
+        </div>
+    </div>
+</div>}
+    <div id="carou_banner" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-indicators">
+
+            @for (var i = 0; i < data.Carousel.Count; i++)
+            {
+                var slide = i + 1;
+                if (i == 0)
+                {
+                    <button class="slide_nav" type="button" data-target="#carou_banner" data-slide-to="@i" class="active" aria-current="true" aria-label="Slide @slide"></button> }
+                else
+                {
+                    <button class="slide_nav" type="button" data-target="#carou_banner" data-slide-to="@i" aria-label="Slide @slide"></button>                }
+            }
+
+        </div>
+        <div class="carousel-banner-homepage">
+            <div class="carousel-inner">
+                @{ var index = 0;
+                                var activeClass = "active";
+                                foreach (var item in data.Carousel)
+                                {
+                                    if (index > 0)
+                                    {
+                                        activeClass = "";
+                                    }
+
+                                    var imgSrc = item.Image == null ? "" : (string)(item.Image.RelativePath);
+
+                    <div class="carousel-item @activeClass">
+                        <div class="banner_container">
+
+                            <img class="overlay_banner_image" src="@imgSrc" alt="banner" />
+                            <div class="banner_title">
+                                @Html.Raw(item.ShortDesc)
+                            </div>
+                            @Html.Raw(item.Description)
+                        </div>
+                    </div> index++;
+                                } }
+
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carou_banner" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carou_banner" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+</section>
+@*<section class="cookie_banner fixed-bottom">
+        <div class="cookie_content row g-0">
+            <div class="col-md-6 col-sm-6">
+                <p>
+                    We use cookies to personalize and enhance your experience on our site.
+                    Visit our <a href="#">Privacy Policy</a> to learn more or
+                    manage your personal preference in our <a href="#">Cookie Consent Tool</a>.
+                </p>
+            </div>
+            <div class="cookie_button_group col-md-6 col-sm-6">
+                <button id="btn_cookie_accept" class="cookie_button btn_white" onclick="CloseCookie();">Accept</button>
+                <button id="btn_cookie_options" class="cookie_button btn_white_outline">Options</button>
+                <button type="button" class="btn_close_white btn-close btn-close-white" aria-label="Close"
+                        onclick="CloseCookie();">
+                    &#x2715
+                </button>
+            </div>
+        </div>
+    </section>*@
+<div class="network_title">Network of Opportunities</div>
+
+<section id="overlay-chart">
+    <div id="map"></div>
+    <div class="grid-container country-grid">
+    </div>
+    <div id="chart" class="carousel slide carousel-fade" data-interval="false" data-ride="carousel">
+        <div class="carousel-indicators">
+            <button class="slide_nav active" type="button" data-target="#chart" data-slide-to="0" aria-current="true" aria-label="Slide 1" onclick="slideChart(0)"></button>
+            <button class="slide_nav" type="button" data-target="#chart" data-slide-to="1" aria-label="Slide 2" onclick="slideChart(1)"></button>
+        </div>
+        <div>
+            <div class="carousel-item active">
+                <div class="chartInfo">
+                    <div class="chartInfoIcon"><em class="fa fa-info-circle"></em></div>
+                    <div class="chartInfoDesc">Click on donut chart below to highlight the project by stage respectively.</div>
+                </div>
+                <div class="chartArea">
+                    <div id="donutchart"></div>
+                    <div class="chartTitle" id="chartTitle1">{{chartTitle}}</div>
+                    <div v-if="totalProjects('SECTOR')>0" class="centerLabel"><h2 class="totalProject">{{totalProjects("SECTOR")}}</h2>Total Projects</div>
+                    <div class="chartData" id="chartData1">
+                        <table aria-labelledby="chart1">
+                            <tr>
+                                <th aria-hidden="true" "></th>
+                            </tr>
+                            <tbody>
+                                <tr v-for="(block,index) in totalSectors">
+                                    <td><img :src="block.Icon" width="30" height="30" alt="block icon"></td>
+                                    <td>{{block.Sector}}</td>
+                                    <td><strong>{{block.Count}}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="chartInfo">
+                    <div class="chartInfoIcon"><em class="fa fa-info-circle"></em></div>
+                    <div class="chartInfoDesc">Click on the donut    chart below to highlight the project by stage respectively.</div>
+                </div>
+                <div class="chartArea">
+                    <div id="barchart"></div>
+                    <div class="chartTitle" id="chartTitle2"></div>
+                    <div v-if="totalProjects('STAGE')>0" class="centerLabel"><h2 class="totalProject">{{totalProjects("STAGE")}}</h2>Total Projects</div>
+                    <div class="chartData" id="chartData2">
+                        <table aria-labelledby="chart2">
+                            <tr>
+                                <th aria-hidden="true""></th>
+                            </tr>
+                            <tbody>
+                                <tr v-for="(block,index) in totalStages">
+                                    <td><img :src="block.Icon" width="30" height="30" alt="block icon"></td>
+                                    <td>{{block.Stage}}</td>
+                                    <td><strong>{{block.Count}}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chartButton">
+            <button id="rightChart" onclick="slideRight()">></button>
+            <button id="leftChart" onclick="slideLeft()" disabled><</button>
+            <button id="prevButton" href="#chart" data-slide="prev" hidden></button>
+            <button id="nextButton" href="#chart" data-slide="next" hidden></button>
+
+        </div>
+    </div>
+    <div id="mapButton">
+        <button id="zoomIn" onclick="zoomIn()">+</button>
+        <button id="zoomOut" onclick="zoomOut()">−</button>
+        <button id="refresh" onclick="refresh()"><i class="fa fa-refresh"></i></button>
+    </div>
+    @if (data.ProjectSector != null && data.ProjectSector.Count > 0)
+    {
+<div class="top-bar">
+    <div class="network_map_nav">
+        <ul class="map_nav_network justify-content-center">
+            @foreach (var sector in data.ProjectSector)
+            {
+<li class="network_nav_item">
+    <a class="href" id=@sector?.Name href="@("~/Project-Listing?sector=" + sector?.Code)">@sector?.Name</a>
+</li>}
+        </ul>
+
+        <select name="map_sector" class="network_nav_item map_sector" onChange="window.document.location.href=this.options[this.selectedIndex].value;">
+            <option value="" disabled selected hidden>View projects by sector</option>
+            @foreach (var sector in data.ProjectSector)
+            {
+
+<option value="@("~/Project-Listing?sector=" + sector?.Code)">@sector?.Name</option>}
+        </select>
+    </div>
+</div>}
+</section>
+<section id="spotlight">
+    @if (data.RecentSpotlights.Count > 0)
+    {
+<div class="spotlight_container">
+    <div class="spotlight_title">Recent Spotlight</div>
+    <div class="spotlight_body row" id="spotlight_carou">
+        @foreach (var item in data.RecentSpotlights)
+        {<div>
+                <div class="spotlight_card">
+                    <div class="card_image_wrapper">
+                        @{ var imgSrc = item?.Banner == null ? "" : (item?.Banner.RelativePath); }
+                        <img src="@imgSrc" class="card_image" alt="card">
+                        <div class="spotlight_category event">@item?.Type</div>
+                    </div>
+                    @{ var tags = item.Tags.Split(","); }
+                    <div class="card_body">
+                        <ul class="tag_list">
+                            @foreach (var tag in tags)
+                            {
+        <li class="tag_item">@tag</li>}
+                        </ul>
+                        <div class="card_title">
+                            @if (item?.Link == "")
+                            {
+        @item?.DisplayName }
+                            else
+                            {
+        <a href=@(item?.Link) target="_blank" rel="noopener">
+            @item?.DisplayName
+        </a>}
+                        </div>
+                        <div class="card_content">
+                            @item?.Description
+                        </div>
+                    </div>
+                </div>
+            </div>                }
+    </div>
+    <div class="project_navigation">
+        <div class="row">
+            <div class="col">
+                <span class="spotlight_nav nav_indicator"></span>
+            </div>
+            <div class="spotlight_arrows">
+                <button id="spotlight_prev" class="nav_button prev">
+                    <img src="~/Theming/Image/Icons/Icon - Previous.svg" alt="previous" />
+                </button>
+                <button id="spotlight_next" class="nav_button next">
+                    <img src="~/Theming/Image/Icons/Icon - Next.svg" alt="next"/>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>}
+</section>
+<section id="headline">
+    <div class="headline_container row g-0">
+        <div class="headline_image_container col-lg-7 order-lg-2">
+            @{ var _imgSrc = data?.CollabCont.Image == null ? "" : (data?.CollabCont.Image.RelativePath); }
+            <img class="w-100" src="@_imgSrc" class="headline_image" alt="headline">
+        </div>
+        <div class="headline_card col-lg-5 order-lg-1">
+            <div class="headline_separator"></div>
+            <div class="headline_title">@Html.Raw(data?.CollabCont.ShortDesc)</div>
+            <div class="headline_content">
+                @Html.Raw(data?.CollabCont.Description)
+            </div>
+            <a class="headline_button button" href="@Html.Raw(data?.CollabCont.PageLink)">
+                Collaborate With Us
+            </a>
+
+        </div>
+    </div>
+</section>
+<section id="partners">
+    @if (data.StrategicPartners.Count > 0)
+    {
+<div class="partner_container">
+    <div class="partner_title">
+        Strategic Partners
+    </div>
+    <div class="partner_list desktop_partner_view">
+        <div class="partner_row row row-cols-lg-6 row-cols-sm-3 d-flex flex-wrap align-items-center desktop_partner_row" id="partner_carou">
+            @foreach (var item in data.StrategicPartners)
+            {
+                var imgSrc = (item?.Image == null ? "" : item?.Image.RelativePath);
+<div class="col partner_card">
+    <img src="@imgSrc" class="partner_logo" alt="partner logo">
+</div>}
+        </div>
+    </div>
+    <div class="partner_list mobile_partner_view">
+        <div class="partner_row row row-cols-lg-6 row-cols-sm-3 d-flex flex-wrap align-items-center mobile_partner_row">
+            @for (var i = 0; i < data.StrategicPartners.Count / 9.0; i++)
+            {
+<div class="mobile_partner">
+    @for (var j = 0; j < 9; j++)
+    {
+        if ((i * 9 + j) > data.StrategicPartners.Count - 1)
+        {
+            break;
+        }
+        var imgSrc = (data.StrategicPartners[i * 9 + j]?.Image == null ? "" : data.StrategicPartners[i * 9 + j]?.Image.RelativePath);
+<div class="col partner_card">
+    <img src="@imgSrc" class="partner_logo" alt="partner">
+</div>}
+</div>}
+        </div>
+    </div>
+    <div class="project_navigation pull-right">
+        <div class="row">
+            <div class="col">
+                <span class="partner_nav nav_indicator"></span>
+            </div>
+            <div class="partner_arrows">
+                <button id="partner_prev" class="nav_button prev">
+                    <img src="~/Theming/Image/Icons/Icon - Previous.svg" alt="previous"/>
+                </button>
+                <button id="partner_next" class="nav_button next">
+                    <img src="~/Theming/Image/Icons/Icon - Next.svg" alt="next"/>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>}
+
+</section>
+<a class="to_top" href="#"><img src="~/Theming/Image/Icons/Icon - Scroll Up.svg" alt="scroll up"  /></a>
+
+@if (data.PopUp != null)
+{
+    _imgSrc = data?.PopUp.Banner == null ? "" : data?.PopUp.Banner.RelativePath;
+<div id="projectIntro" class="modal">
+    <div class="project_modal_container">
+        <div class="row g-0">
+            <div class="col-md-5 col-sm-12">
+                <div class="project_image_container h-100">
+                    <img src="@_imgSrc" alt="" class="project_image h-100 w-100" id="homepage_popup_img">
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <div class="project_body">
+                    <button type="button" class="btn_modal_close btn-close btn-close-dark" aria-label="Close"
+                            onclick="CloseModal();">
+                        &#x2715
+                    </button>
+                    @if (data?.PopUp.Type != null & data?.PopUp.Type != "")
+                    {
+    <span class="new_project_tag">@data?.PopUp.Type</span>}
+                    <div class="project_title">
+                        @data?.PopUp.DisplayName
+                    </div>
+                    <div class="project_tag">
+                        <ul class="project_tag_list">
+                            @{ var popupTags = data?.PopUp.Tags.Split(","); }
+                            @foreach (var tag in popupTags)
+                            {
+            <li class="project_tag_item">@tag</li>}
+                        </ul>
+                    </div>
+                    <div class="project_content">
+                        @Html.Raw(data?.PopUp.Description)
+                    </div>
+                    <a target="_blank" href="@(data?.PopUp.Link)" class="btn_project_read_more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>}
+
+@section Scripts{
+    <script>
+        $('#project_sector').remove();
+    </script>
+    <script type="text/javascript" src="~/js/mapchart.min.js"></script>
+    <script type="text/javascript">
+    var _projectSector = [];
+    let popup = [], Popup;
+    let map;
+    var zoomLevel = 0;
+    var countryBound = null, country = null;
+    var center, countries = [], projects = [];
+    var currentChart = 0;
+    var mapData, totalProject = 0;
+    var latitude, longitude;
+    var projectStage;
+    var projectStageCount = {};
+    var proj_marker=[];
+
+
+    map_data.DataCount = @Html.Raw(Json.Serialize(@data.ProjectsCount.Where(p=>p.FieldCount>0)));
+    map_data.DataCountByFieldName = @Html.Raw(Json.Serialize(@data.ProjectsCount.Where(p=>p.FieldCount>0).OrderBy(p=>p.FieldName)));
+    map_data.sectorIcons = @Html.Raw(Json.Serialize(@data.ProjectSector.Select(p=>new {p.Name, p.Icon })));
+    map_data.stageIcons = @Html.Raw(Json.Serialize(@data.ProjectStage.Select(p=>new {p.Name, p.Icon })));
+    map_data.projectCountryLocation= @Html.Raw(Json.Serialize(@data.ProjectsCount.Where(p=>p.FieldLocation!=null).Select(p=>p.FieldLocation).FirstOrDefault()));
+    @*mapData=@Html.Raw(Json.Serialize(@data.ProjectsCount.Where(p=>p.FieldLocation!=null).Select(p=>p.FieldLocation).FirstOrDefault()));*@
+
+
+    function drawRegionsMap() {
+
+        var data1 = google.visualization.arrayToDataTable(map_data.sectorDataChart);
+
+
+        //var sectorColor = ['#9e53ff', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'];
+        var sectorColor = map_data.sectorChartColorsItems;
+        //var stageColor = ['#9e53ff', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'];
+        var stageColor = map_data.stageChartColorsItems;
+
+        var options1 = {
+            pieHole: 0.7,
+            legend: 'none',
+            pieSliceText: 'none',
+            chartArea: {
+                left: 10,
+                top: 50,
+                width: 280,
+                height: 230,
+            },
+            height: 300,
+            width: 300,
+            tooltip: { isHtml: true },
+            colors: sectorColor
+        };
+
+        var chart1 = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart1.draw(data1, options1);
+
+        var data2 = google.visualization.arrayToDataTable(map_data.stageDataChart);
+
+        var title = country == null ? "On Going \nProjects by Stages" : country + "'s On Going \nProjects by Stages";
+
+        var options2 = {
+            pieHole: 0.7,
+            legend: 'none',
+            pieSliceText: 'none',
+            chartArea: {
+                left: 10,
+                top: 50,
+                width: 280,
+                height: 230,
+            },
+            title: title,
+            height: 300,
+            width: 300,
+            colors: stageColor
+        };
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('barchart'));
+        chart2.draw(data2, options2);
+
+        google.visualization.events.addListener(chart1, 'select', function (e) {
+            var selection = chart1.getSelection();
+            if (selection.length) {
+                var pieSliceLabel = data1.getValue(selection[0].row, 0);
+            }
+        });
+
+        google.visualization.events.addListener(chart2, 'select', function (e) {
+            var selection = chart2.getSelection();
+            if (selection.length) {
+                var pieSliceLabel = data2.getValue(selection[0].row, 0);
+            }
+        });
+    }
+
+
+    function initMap() {
+        google.charts.load("current", { packages: ["corechart"] });
+        drawMap();
+    }
+
+    function drawMap() {
+
+        resetChartColor();
+        map_data.active = "All";
+        map_data.chartTitle = "Number of Projects by Sector";
+
+        zoomLevel = 0;
+        popup = [];
+        proj_marker = [];
+        //infoWindow = [];
+        country = null;
+
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        document.getElementById("zoomOut").disabled = true;
+        document.getElementById("zoomIn").disabled = true;
+        document.getElementById("refresh").style.display = "none";
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 4.5,
+            center: { lat: 12.0479, lng: 90.6197 },
+            /*mapId: '343a3b5ae0e4ef84',*/
+            zoomControl: false,
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl: false,
+            keyboardShortcuts:false,
+            styles: map_data.firstLevelStyle
+        });
+
+        if ($(window).width() < 1024) {
+            map.setZoom(3.5);
+        }
+
+        if ($(window).width() < 724) {
+            map.setCenter(new google.maps.LatLng(12.0479, 100.6197));
+            map.setZoom(2.7);
+        }
+
+        map.setOptions({ draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true });
+        map.data.loadGeoJson('/Theming/js/asia-geo.json');
+
+        map.data.setStyle(function (feature) {
+            var color = '#f3f3f3';
+            var strokeColor = '#222156';
+
+            map_data.projectCountryLocation.forEach(function (data) {
+                if (feature.getProperty('name') === data._LocationName) {
+                    color = '#1f8541';
+                    strokeColor = '#ffffff';
+                }
+            });
+            return  /*{google.maps.Data.StyleOptions}*/ ({
+                fillColor: color,
+                fillOpacity: 1,
+                strokeColor: strokeColor,
+                strokeWeight: 0.2,
+                cursor: 'default',
+            });
+        });
+
+        class Popup extends google.maps.OverlayView {
+            position;
+            containerDiv;
+            constructor(position, content, id) {
+                super();
+                this.position = position;
+                const con = document.createElement("div");
+                con.id = id;
+                if ($(window).width() >= 992) {
+                    con.addEventListener('click', findAddress);
+                }
+                con.classList.add("popup-bubble");
+                con.innerHTML = content;
+                // This zero-height div is positioned at the bottom of the bubble.
+                const bubbleAnchor = document.createElement("div");
+                bubbleAnchor.classList.add("popup-bubble-anchor");
+                bubbleAnchor.appendChild(con);
+                // This zero-height div is positioned at the bottom of the tip.
+                this.containerDiv = document.createElement("div");
+                this.containerDiv.classList.add("popup-container");
+                this.containerDiv.appendChild(bubbleAnchor);
+
+                // Optionally stop clicks, etc., from bubbling up to the map.
+                Popup.preventMapHitsAndGesturesFrom(this.containerDiv);
+            }
+            /** Called when the popup is added to the map. */
+            onAdd() {
+                this.getPanes().floatPane.appendChild(this.containerDiv);
+            }
+            /** Called when the popup is removed from the map. */
+            onRemove() {
+                if (this.containerDiv.parentElement) {
+                    this.containerDiv.parentElement.removeChild(this.containerDiv);
+                }
+            }
+            /** Called each frame when the popup needs to draw itself. */
+            draw() {
+                const divPosition = this.getProjection().fromLatLngToDivPixel(
+                    this.position
+                );
+                // Hide the popup when it is far out of view.
+                const display =
+                    Math.abs(divPosition.x) < 4000 && Math.abs(divPosition.y) < 4000
+                        ? "block"
+                        : "none";
+
+                if (display === "block") {
+                    this.containerDiv.style.left = divPosition.x + "px";
+                    this.containerDiv.style.top = divPosition.y + "px";
+                }
+
+                if (this.containerDiv.style.display !== display) {
+                    this.containerDiv.style.display = display;
+                }
+            }
+        }
+
+        var countryGridHtml = "";
+
+        map_data.projectCountryLocation.forEach(function (data,index) {
+            popup.push(new Popup(
+                new google.maps.LatLng(data._Latitude, data._longitude),
+                `<img class="left-popup" src="${data._flag}" >` +
+                `<div class=\"right-popup\"><div><strong>${data._LocationName}</strong><br><br>Total Projects<br><strong>${data.totalProject} </strong></div>`,
+                data._LocationName
+            ));
+            popup[index].setMap(map);
+
+            countryGridHtml += `<div onClick="sortCountry('${data._LocationName}')"> <img class="left-popup-grid left-popup" src="${data._flag}" > ` +
+                                `<div class="right-popup-grid"><div><strong>${data._LocationName}</strong><br>Total Projects<br><strong>${data.totalProject} </strong></div></div>
+                                </div>`;
+        });
+
+        $(".country-grid").html(countryGridHtml);
+    }
+
+
+    function sortCountry(country) {
+        window.location.href = `/Project-Listing?country=${country}`;
+    }
+    function resetChartColor() {
+        map_data.sectorChartColorsItems = [];
+        map_data.stageChartColorsItems = [];
+    }
+    function findAddress(_country) {
+
+        resetChartColor();
+        var countryName = (typeof this.id !== 'undefined') ?this.id: _country;
+        map_data.active = countryName;
+        map_data.chartTitle = map_data.active + " Projects by Sector";
+
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        const geocoder = new google.maps.Geocoder();
+
+        if (zoomLevel == 1) {
+            displayZoomLevel2();
+        }
+        else {
+            GetMetaData();
+
+            map.set("styles", map_data.secondLevelStyle);
+            zoomLevel = 1;
+            $('.popup-container').addClass("d-none");
+            $('#' + countryName).parent().parent().removeClass("d-none");
+            map.data.setStyle(function (feature) {
+
+                var color = '#f3f3f3';
+                var strokeColor = '#222156';
+                var strokeWeight = 0;
+                var opacity = 0;
+                if (feature.getProperty('name') === countryName) {
+                    color = '#1d7d3d';
+                    strokeColor = '#105c24';
+                    strokeWeight = 2;
+                    opacity = 0.8;
+
+                }
+
+                return ({
+                    color: '#ffffff',
+                    fillColor: color,
+                    fillOpacity: opacity,
+                    strokeColor: strokeColor,
+                    strokeWeight: strokeWeight,
+                    cursor: 'default',
+                });
+            });
+
+            geocoder.geocode({ 'address': countryName }, function (results, status) {
+
+                google.maps.event.addListenerOnce(map, 'center_changed', centerChanged);
+
+                google.maps.event.addListenerOnce(map, 'bounds_changed', centerChanged);
+
+                if (status == google.maps.GeocoderStatus.OK) {
+
+                    if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+
+                        var bounds = results[0].geometry.bounds;
+                        var zoomLevel = getZoomByBounds(map, bounds) - 0.3;
+
+                        if ((results && results[0] && results[0].formatted_address) && (results[0].formatted_address == "Antarctica")) {
+
+                            map.setCenter(new google.maps.LatLng(-75, 0));
+
+                            map.setZoom(3);
+
+                        } else if (results && results[0] && results[0].geometry && results[0].geometry.viewport) {
+
+                            map.setCenter(results[0].geometry.location);
+
+
+                             map.setZoom(zoomLevel);
+
+
+                            country = countryName;
+
+                            countryBound = results[0].geometry.viewport;
+
+                            center = results[0].geometry.location;
+
+                            document.getElementById("zoomIn").disabled = false;
+                            document.getElementById("zoomOut").disabled = false;
+
+
+                        } else if (results && results[0] && results[0].geometry && results[0].geometry.bounds) {
+
+                            map.setCenter(results[0].geometry.location);
+
+                            /* map.setZoom(5);*/
+
+                            map.setZoom(zoomLevel);
+
+                            countryBound = results[0].geometry.viewport;
+
+                            center = results[0].geometry.location;
+
+
+                        } else {
+
+
+
+                        }
+
+
+
+                    } else {
+
+
+
+                    }
+
+                } else {
+
+
+
+                }
+
+            });
+
+        }
+
+    }
+    function centerChanged() {
+
+        if (map.getCenter().lat() < -85) {
+
+            google.maps.event.addListenerOnce(map, 'center_changed', function () {
+
+                map.setZoom(3);
+
+            });
+
+            map.setCenter(new google.maps.LatLng(-75, 0));
+
+        } else if (map.getCenter().lat() > 85) {
+
+            google.maps.event.addListenerOnce(map, 'center_changed', function () {
+
+                map.setZoom(3);
+
+            });
+
+            map.setCenter(new google.maps.LatLng(75, 0));
+
+        }
+
+    }
+
+    function slideLeft() {
+        document.getElementById("prevButton").click();
+        document.getElementById("leftChart").disabled = true;
+        document.getElementById("rightChart").disabled = false;
+    }
+
+    function slideRight() {
+        document.getElementById("nextButton").click();
+        document.getElementById("leftChart").disabled = false;
+        document.getElementById("rightChart").disabled = true;
+    }
+
+    function slideChart(i) {
+        if (i == 0) {
+            document.getElementById("leftChart").disabled = true;
+            document.getElementById("rightChart").disabled = false;
+        }
+        else if (i == 1) {
+            document.getElementById("leftChart").disabled = false;
+            document.getElementById("rightChart").disabled = true;
+        }
+    }
+
+    function zoomIn() {
+        displayZoomLevel2();
+
+    }
+
+    function zoomOut() {
+        if (zoomLevel == 1) {
+            drawMap();
+        }
+        else {
+
+            for (let i = 0; i < proj_marker.length; i++) {
+                proj_marker[i].setMap(null);
+            }
+            //zoomLevel = 1;
+            //const _active = map_data.active;
+            //drawMap();
+            //setTimeout(
+            //    function () {
+            //        $('#' + _active).click();
+            //    }, 1000);
+
+            //document.getElementById("zoomIn").style.display = 'block';
+            //document.getElementById("refresh").style.display = 'none';
+
+            /*  zoomLevel = 1;*/
+            zoomLevel = 2;
+            findAddress(map_data.active);
+            for (let i = 0; i < popup.length; i++) {
+                if (country == countries[i][0]) {
+                    popup[i].setMap(map);
+                }
+            }
+            $('#' + map_data.active).parent().parent().removeClass("d-none");
+
+            const geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({ 'address': country }, function (results, status) {
+
+                google.maps.event.addListenerOnce(map, 'center_changed', centerChanged);
+
+                google.maps.event.addListenerOnce(map, 'bounds_changed', centerChanged);
+
+                if (status == google.maps.GeocoderStatus.OK) {
+
+                    var bounds = results[0].geometry.bounds;
+                    var zoomLevel = getZoomByBounds(map, bounds) - 0.5;
+
+                    if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+
+                        if ((results && results[0] && results[0].formatted_address) && (results[0].formatted_address == "Antarctica")) {
+
+                            map.setCenter(new google.maps.LatLng(-75, 0));
+
+                            map.setZoom(3);
+
+                        } else if (results && results[0] && results[0].geometry && results[0].geometry.viewport) {
+
+                            map.setCenter(results[0].geometry.location);
+
+                            //map.setZoom(5);
+
+                            map.setZoom(zoomLevel);
+
+                            countryBound = results[0].geometry.viewport;
+
+                            center = results[0].geometry.location;
+
+                            document.getElementById("zoomIn").style.display = 'block';
+                            document.getElementById("refresh").style.display = 'none';
+
+
+                            //var htmlStr = results[0].formatted_address + "<br>";
+
+                            //htmlStr += "viewport=" + results[0].geometry.viewport.toUrlValue(6) + "<br>";
+
+                            //htmlStr += "bounds=" + results[0].geometry.bounds.toUrlValue(6) + "<br>";
+
+                            //document.getElementById('info').innerHTML = htmlStr;
+
+                        } else if (results && results[0] && results[0].geometry && results[0].geometry.bounds) {
+
+                            map.setCenter(results[0].geometry.location);
+
+                            //map.setZoom(5);
+
+                            map.setZoom(zoomLevel);
+
+                            countryBound = results[0].geometry.viewport;
+
+                            center = results[0].geometry.location;
+
+
+                            //map.fitBounds(results[0].geometry.bounds);
+
+                            //countryBound = results[0].geometry.bounds;
+
+                            // var htmlStr = results[0].formatted_address + "<br>";
+
+                            //htmlStr += "bounds=" + results[0].geometry.bounds.toUrlValue(6) + "<br>";
+
+                            //document.getElementById('info').innerHTML = htmlStr;
+
+                        } else {
+
+                            // var htmlStr = results[0].formatted_address + "" < br > "";
+
+                            // document.getElementById('info').innerHTML = htmlStr;
+
+                        }
+
+
+
+                    } else {
+
+                        //alert("No results found");
+
+                    }
+
+                } else {
+
+                    //alert("Geocode was not successful for the following reason: " + status);
+
+                }
+
+            });
+        }
+    }
+
+    function refresh() {
+        document.getElementById("zoomIn").style.display = "block";
+        drawMap();
+    }
+
+    function displayZoomLevel2() {
+
+        var proj_info_window = new google.maps.InfoWindow();
+
+        /*var proj_marker;*/
+
+        map.set("styles", map_data.thirdLevelStyle);
+        zoomLevel = 2;
+        var countryName = map_data.active;
+        $('#' + countryName).parent().parent().addClass("d-none");
+
+        map.data.setStyle(function (feature) {
+
+            var color = '#f3f3f3';
+            var strokeColor = '#222156';
+            var strokeWeight = 0;
+            var opacity = 0;
+            if (feature.getProperty('name') === countryName) {
+                color = '#299a41';
+                strokeColor = '#299a41';
+                strokeWeight = 2.5;
+                opacity = 0.1;
+            }
+
+            return ({
+                color: '#ffffff',
+                fillColor: color,
+                fillOpacity: opacity,
+                strokeColor: strokeColor,
+                strokeWeight: strokeWeight,
+                strokeOpacity:0.5,
+                cursor: 'default',
+            });
+        });
+
+        map_data.secondLevelData.forEach(function (data, index) {
+            var geocoder = new google.maps.Geocoder();
+            var postalCode = data.PostalCode;
+            var sector = data.Sector;
+            if (postalCode.length == 1) {
+                postalCode = "";
+            }
+            var address = data.Location + " " + countryName + " " + postalCode;
+            if (address.trim()!=country) {
+                geocoder.geocode({ address }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+
+
+                        var SectorIcon = map_data.sectorIcons.filter(function (item) {
+                            return item.name == sector;
+                        });
+
+                        var latitude = results[0].geometry.location.lat();
+                        var longitude = results[0].geometry.location.lng();
+
+                        addMarkerV2({
+                            latitude: latitude,
+                            longitude: longitude,
+                            title: data.ProjectTitle,
+                            stage: data.Stage,
+                            location: data.Location,
+                            sector: sector,
+                            siteType: data.SiteType,
+                            subSector: data.SubSector,
+                            url: data.Url,
+                            icon: SectorIcon[0].icon,
+                            country: countryName
+                        }, index, proj_info_window);
+
+                    }
+
+                });
+            }
+
+
+        });
+
+        google.maps.event.addListenerOnce(map, 'center_changed', centerChanged);
+
+        google.maps.event.addListenerOnce(map, 'bounds_changed', centerChanged);
+
+        if (countryName == "Vietnam") {
+            map.setZoom(map.getZoom());
+        }
+        else if (countryName == "Indonesia") {
+            map.setCenter(new google.maps.LatLng(-6.914744,107.609810));
+            map.setZoom(map.getZoom() + 3);
+        }
+        else {
+            map.setZoom(map.getZoom() + 0.3);
+        }
+
+
+        document.getElementById("zoomIn").style.display = "none";
+
+        document.getElementById("refresh").style.display = "block";
+    }
+
+    function addMarkerV2(data, i, proj_info_window) {
+        if (data.location.trim()=="") {
+            data.location = data.country;
+        }
+        var content = `<div>
+            <div>
+            <div class="col">
+                <img src=${data.icon} width=40 height=40/>
+                                                        <b>${data.title}</b></div>
+                                                    </div >
+                                                    <hr class="marker_line"/>
+                                                    <div class="col card_detail_row">
+                                                        <div class="row no-gutters">
+                                                            <div class="project_start col-md-6">
+                                                                <div class="project_field_label">Region</div>
+                                                                <div class="project_field_value">${data.location}</div>
+                                                            </div>
+                                                            <div class="project_start col-md-1">
+                                                            </div>
+                                                            <div class="project_mod col-md-5">
+                                                                <div class="project_field_label">Sector</div>
+                                                                <div class="project_field_value">${data.sector}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col card_detail_row">
+                                                        <div class="row no-gutters">
+                                                            <div class="project_start col-md-6">
+                                                                <div class="project_field_label">Type</div>
+                                                                <div class="project_field_value">${data.siteType}</div>
+                                                            </div>
+                                                            <div class="project_start col-md-1">
+                                                            </div>
+                                                            <div class="project_mod col-md-5">
+                                                                <div class="project_field_label">Sub-Sector</div>
+                                                                <div class="project_field_value">${data.subSector}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br><br>
+                                                    <div class="col card_detail_row">
+                                                        <div class="row no-gutters">
+                                                            <div class="project_start col">
+                                                                <a href="${data.url}" class="info_window_link">Find Out More </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+
+        proj_marker.push(
+             new google.maps.Marker({
+                position: { lat: data.latitude, lng: data.longitude },
+                map,
+                icon: data.icon,
+            })
+        );
+
+                google.maps.event.addListener(proj_marker[i], 'mouseover', (
+                function (proj_marker) {
+                return function () {
+                    proj_info_window.setContent(content);
+                    proj_info_window.open(map, proj_marker);
+                }
+                })(proj_marker[i], i));
+        console.log(data.location);
+    }
+
+    function GetMetaData() {
+        $.ajax({
+            url: "/ProjectAPI/GetMetaData",
+            contentType: "application/json charset=utf-8",
+            dataType: "json",
+            method: "GET",
+            data: { country: map_data.active},
+            success: function (data) {
+               map_data.secondLevelData = data;
+            },
+            error: function (error) {
+            },
+            complete: function (response) {
+            }
+        });
+    }
+
+    function getZoomByBounds(map, bounds) {
+        var MAX_ZOOM = map.mapTypes.get(map.getMapTypeId()).maxZoom || 21;
+        var MIN_ZOOM = map.mapTypes.get(map.getMapTypeId()).minZoom || 0;
+
+        var ne = map.getProjection().fromLatLngToPoint(bounds.getNorthEast());
+        var sw = map.getProjection().fromLatLngToPoint(bounds.getSouthWest());
+
+        var worldCoordWidth = Math.abs(ne.x - sw.x);
+        var worldCoordHeight = Math.abs(ne.y - sw.y);
+
+        //Fit padding in pixels
+        var FIT_PAD = 40;
+
+        for (var zoom = MAX_ZOOM; zoom >= MIN_ZOOM; --zoom) {
+            if (worldCoordWidth * (1 << zoom) + 2 * FIT_PAD < $(map.getDiv()).width() &&
+                worldCoordHeight * (1 << zoom) + 2 * FIT_PAD < $(map.getDiv()).height())
+                return zoom;
+        }
+        return 0;
+    }
+
+    $(document).ready(function () {
+
+        responsive_2items = [
+            {
+                breakpoint: 1050,
+                settings: "unslick"
+            }
+        ]
+        responsive_3items = [
+            {
+                breakpoint: 800,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 1050,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: 1400,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4
+                }
+
+            }
+
+        ]
+        $spotlight_slick = $('#spotlight_carou');
+        spotlight_carou = document.getElementById('spotlight_carou');
+        spotlight_card = spotlight_carou.getElementsByClassName('spotlight_card');
+        spotlight_settings = {
+            mobileFirst: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            draggable: false,
+            prevArrow: $('#spotlight_prev'),
+            nextArrow: $('#spotlight_next'),
+            dots: true,
+            appendDots: $('.spotlight_nav'),
+            infinite: false,
+            responsive: []
+        }
+
+        if (spotlight_card.length >= 3) {
+            spotlight_settings.responsive = responsive_3items
+
+        }
+        else if (spotlight_card.length == 2) {
+            spotlight_settings.responsive = responsive_2items
+
+        }
+        if (spotlight_card.length > 0) {
+            $spotlight_slick.slick(spotlight_settings);
+        }
+
+        function PartnerLogoSlider(logo_count) {
+                    //12 per div
+                    // var partner_row_size=$('.partner_row').size();
+                    // if(partner_row_size>1){
+                    // 	//merge
+                    // }
+                    $('<div>', {
+                        class: $('.desktop_partner_row').attr('class')
+                    }).append($('.desktop_partner_row .col:lt(' + logo_count + ')').detach()).prependTo('.desktop_partner_view');
+        }
+
+        if ($(window).width() > 700) {
+            $('.desktop_partner_view').slick({
+                arrows: true,
+                draggable: false,
+                prevArrow: $('#partner_prev'),
+                nextArrow: $('#partner_next'),
+                dots: true,
+                appendDots: $('.partner_nav'),
+                infinite: false,
+                adaptiveHeight: true,
+                customPaging: PartnerLogoSlider(12),
+            });
+        }
+        else {
+            $('.mobile_partner_row').slick({
+                arrows: true,
+                draggable: false,
+                prevArrow: $('#partner_prev'),
+                nextArrow: $('#partner_next'),
+                dots: true,
+                appendDots: $('.partner_nav'),
+                infinite: false,
+                adaptiveHeight: true,
+            });
+        }
+
+        $partner_slick = $('#partner_carou');
+        partner_carou = document.getElementById('partner_carou');
+        partner_card = document.getElementsByClassName('partner_card');
+
+        if ($(window).width() > 1050) {
+            if (spotlight_card.length == 2 || spotlight_card.length == 0 || spotlight_card.length == 4) {
+                $('.spotlight_arrows').hide();
+                $('.spotlight_nav').hide();
+            }
+        }
+
+        if ($(window).width() > 1400) {
+            if (spotlight_card.length == 2 || spotlight_card.length == 0 || spotlight_card.length == 4) {
+                $('.spotlight_arrows').hide();
+                $('.spotlight_nav').hide();
+            }
+        }
+
+        if ($(window).width() < 701) {
+            if (partner_card.length <= 18 && partner_card.length >= 0) {
+                $('.partner_arrows').hide();
+                $('.partner_nav').hide();
+            }
+        }
+        else if ($(window).width() > 700) {
+            if (partner_card.length <= 24 && partner_card.length >= 0) {
+                $('.partner_arrows').hide();
+                $('.partner_nav').hide();
+            }
+        }
+
+        /*if (request_card.length > 0) {
+            $request_slick.slick(request_settings);
+        }*/
+
+        $(window).on('resize', function () {
+            if ($(window).width() > 1050) {
+                if (spotlight_card.length == 2) {
+                    if ($spotlight_slick.hasClass('slick-initialized')) {
+                        $spotlight_slick.slick('unslick');
+                    }
+                    $('.spotlight_arrows').hide();
+                    $('.spotlight_nav').hide();
+                }
+                /*if (request_card.length == 2) {
+                    if ($request_slick.hasClass('slick-initialized')) {
+                        $request_slick.slick('unslick');
+                    }
+                    $('.request_arrows').hide();
+                }*/
+
+            }
+
+            if (!$spotlight_slick.hasClass('slick-initialized')) {
+                $('.spotlight_arrows').show();
+                $spotlight_slick.slick(spotlight_settings);
+
+            }
+            /*if (!$request_slick.hasClass('slick-initialized')) {
+                $('.request_arrows').show();
+                $request_slick.slick(request_settings);
+            }*/
+
+            if ($(window).width() < 1024) {
+                map.setZoom(3.5);
+            }
+            if ($(window).width() < 724) {
+                map.setCenter(new google.maps.LatLng(12.0479, 100.6197));
+                map.setZoom(2.7);
+            }
+        });
+
+
+    });
+    </script>
+    @if (Context.Request.Host.Host == "project-portal.infrastructureasia.org")
+    {
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuDUPMbVoKUCVinbxBrNBeuwBfbI7LH4k&libraries=drawing&callback=initMap"></script> }
+                else
+                {
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuQXb_oAb20JXF62hUvViHtsGGtcc07Hg&libraries=drawing&callback=initMap"></script>}
+}
+
+
+
+
