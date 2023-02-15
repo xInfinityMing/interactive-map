@@ -8,7 +8,12 @@
       <div id="interactiveMap"></div>
       <div class="interactive-map-chart">
         <div class="interactive-map-search">
-          <input class="interactive-map-search-input" value="" data-search="" placeholder="Search by Properties"/>
+          <input
+            class="interactive-map-search-input"
+            value=""
+            data-search=""
+            placeholder="Search by Properties"
+          />
         </div>
         <div class="interactive-map-chart-wrapper">
           <div class="interactive-map-chart-cont">
@@ -25,33 +30,35 @@
             <div class="interactive-map-chart-filter">
               <div class="interactive-map-chart-filter-inner">
                 <div class="interactive-map-chart-filter-header-wrapper">
-                  <div class="interactive-map-chart-filter-header">
-                    Market
-                  </div>
-                  <button class="interactive-map-chart-filter-header-plus"></button>
+                  <div class="interactive-map-chart-filter-header">Market</div>
+                  <button
+                    class="interactive-map-chart-filter-header-plus"
+                    data-filter="market"
+                  ></button>
                 </div>
-                <div class="interactive-map-chart-filter-list">
-                </div>
+                <div class="interactive-map-chart-filter-list"></div>
               </div>
               <div class="interactive-map-chart-filter-inner">
                 <div class="interactive-map-chart-filter-header-wrapper">
-                  <div class="interactive-map-chart-filter-header">
-                    Sector
-                  </div>
-                  <button class="interactive-map-chart-filter-header-plus"></button>
+                  <div class="interactive-map-chart-filter-header">Sector</div>
+                  <button
+                    class="interactive-map-chart-filter-header-plus"
+                    data-filter="sector"
+                  ></button>
                 </div>
-                <div class="interactive-map-chart-filter-list">
-                </div>
+                <div class="interactive-map-chart-filter-list"></div>
               </div>
               <div class="interactive-map-chart-filter-inner">
                 <div class="interactive-map-chart-filter-header-wrapper">
                   <div class="interactive-map-chart-filter-header">
                     Platform
                   </div>
-                  <button class="interactive-map-chart-filter-header-plus"></button>
+                  <button
+                    class="interactive-map-chart-filter-header-plus"
+                    data-filter="platform"
+                  ></button>
                 </div>
-                <div class="interactive-map-chart-filter-list">
-                </div>
+                <div class="interactive-map-chart-filter-list"></div>
               </div>
             </div>
           </div>
@@ -59,66 +66,52 @@
           <div class="interactive-map-chart-filter-overlay hide">
             <div class="interactive-map-chart-filter-header-wrapper">
               <div class="interactive-map-chart-filter-header">
-                Filter by Sector(s)
+                Filter by <span></span>(s)
               </div>
               <div class="interactive-map-chart-filter-close">
-                <img src="./assets/close.svg"/>
+                <img src="./assets/close.svg" />
               </div>
             </div>
             <div class="interactive-map-search">
-              <input class="interactive-map-search-input" value="" data-search="" placeholder="Search by Properties"/>
+              <input
+                class="interactive-map-search-input"
+                value=""
+                data-search=""
+                placeholder="Search by Properties"
+              />
             </div>
             <div class="interactive-map-filter">
               <div class="interactive-map-filter-list">
-                <div class="interactive-map-filter-checkbox" data-filter="all">
-                  <input type="checkbox" id="all" name="all">
-                  <label for="all">Select All</label>
-                </div>
-                <div class="interactive-map-filter-checkbox" data-filter="office">
-                  <input type="checkbox" id="office" name="office">
-                  <label for="office">Office</label>
-                </div>
-                <div class="interactive-map-filter-checkbox" data-filter="mixed-use">
-                  <input type="checkbox" id="mixed-use" name="mixed-use">
-                  <label for="mixed-use">Mixed-Use </label>
-                </div>
-                <div class="interactive-map-filter-checkbox" data-filter="service-apartment">
-                  <input type="checkbox" id="service-apartment" name="service-apartment">
-                  <label for="service-apartment">Corporate Housing / Service Apartment</label>
-                </div>
-                <div class="interactive-map-filter-checkbox" data-filter="student">
-                  <input type="checkbox" id="student" name="student">
-                  <label for="student">Student Accommodation</label>
-                </div>
-                <div class="interactive-map-filter-checkbox" data-filter="retail">
-                  <input type="checkbox" id="retail" name="retail">
-                  <label for="retail">Retail</label>
-                </div>
-                <div class="interactive-map-filter-checkbox" data-filter="logistics">
-                  <input type="checkbox" id="logistics" name="logistics">
-                  <label for="logistics">Logitics</label>
-                </div>
-                </div>
+                <!-- Template data will bind here -->
               </div>
+              <template id="interactive-map-filter-template">
+                <div class="interactive-map-filter-checkbox" data-filter="" data-category="">
+                  <input type="checkbox" id="" name="" />
+                  <label for=""></label>
+                </div>
+              </template>
             </div>
           </div>
         </div>
+      </div>
       <div class="interactive-map-properties-menu">
         <div class="interactive-map-properties-menu-button"></div>
         <div class="interactive-map-properties-menu-content">
-          <a class="interactive-map-properties-view-all" href="#">View all Properties</a>
+          <a class="interactive-map-properties-view-all" href="#"
+            >View all Properties</a
+          >
           <div class="interactive-map-properties-wrapper">
             <div class="interactive-map-properties-content-wrapper">
               <!-- Template data will bind here -->
-    
             </div>
             <div class="interactive-map-properties-pagination">
               <div class="interactive-map-properties-pagination-desktop">
                 <div class="pagination-left disable">
                   <a href="#" class="previous-pagination"></a>
                 </div>
-                <ul class="interactive-map-properties-pagination-container">
-                </ul>
+                <ul
+                  class="interactive-map-properties-pagination-container"
+                ></ul>
                 <div class="pagination-right">
                   <a href="#" class="next-pagination"></a>
                 </div>
@@ -127,15 +120,16 @@
           </div>
           <template id="interactive-map-properties-template">
             <div class="interactive-map-properties-item">
-                <a href="#">
-                  <img src=""/><span></span>
-                </a>
+              <a href="#"> <img src="" /><span></span> </a>
             </div>
           </template>
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_zygPIhrEaxrgmVIg27pXxFejiyI2FjI&callback=initMap"></script>
     <script src="https://unpkg.com/@googlemaps/markerwithlabel/dist/index.min.js"></script>
   </body>

@@ -1,84 +1,59 @@
-//----------------------- Defined Variables -------------------------------//
+//----------------------- Define Variables -------------------------------//
 let interactiveMapData = (window.dataInteractiveMap = {
-  mapStyle: [
-    // {
-    //   featureType: "all",
-    //   elementType: "geometry.fill",
-    //   stylers: [
-    //     {
-    //       color: "#FBFBFB",
-    //     },
-    //   ],
-    // },
-    { elementType: "geometry", stylers: [{ color: "#7887A0" }] },
+  mapStyleLayers: [
     {
-      featureType: "transit.line",
-      elementType: "geometry",
-      stylers: [{ color: "#D99562" }],
+      stylers: [
+        {
+          saturation: -5,
+        },
+      ],
+    },
+    {
+      elementType: "geometry.fill",
+      stylers: [
+        {
+          saturation: 5,
+        },
+        {
+          weight: 1.5,
+        },
+      ],
+    },
+    {
+      featureType: "landscape",
+      stylers: [
+        {
+          color: "#7285a1",
+        },
+        {
+          saturation: 5,
+        },
+      ],
     },
     {
       featureType: "road",
       elementType: "geometry",
-      stylers: [{ color: "#f5f1e6" }],
+      stylers: [
+        {
+          visibility: "on",
+        },
+      ],
     },
     {
-      featureType: "road.arterial",
-      elementType: "geometry",
-      stylers: [{ color: "#fdfcf8" }],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry",
-      stylers: [{ color: "#f8c967" }],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry.stroke",
-      stylers: [{ color: "#e9bc62" }],
-    },
-    {
-      featureType: "road.highway.controlled_access",
-      elementType: "geometry",
-      stylers: [{ color: "#e98d58" }],
-    },
-    {
-      featureType: "road.highway.controlled_access",
-      elementType: "geometry.stroke",
-      stylers: [{ color: "#db8555" }],
-    },
-    {
-      featureType: "road.local",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#806b63" }],
-    },
-    {
-      featureType: "administrative.land_parcel",
-      elementType: "geometry.stroke",
-      stylers: [{ color: "#7EAE72" }],
-    },
-    {
-      featureType: "administrative.land_parcel",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#ae9e90" }],
-    },
-    {
-      featureType: "landscape.natural",
-      elementType: "geometry",
-      stylers: [{ color: "#7887A0" }],
-    },
-    {
-      featureType: "poi",
-      elementType: "geometry",
-      stylers: [{ color: "#dfd2ae" }],
-    },
-    {
-      featureType: "poi.park",
+      featureType: "road",
       elementType: "geometry.fill",
-      stylers: [{ color: "#a5b076" }],
+      stylers: [
+        {
+          color: "#454545",
+        },
+        {
+          weight: 1,
+        },
+      ],
     },
     {
-      featureType: "all",
-      elementType: "labels",
+      featureType: "road",
+      elementType: "geometry.stroke",
       stylers: [
         {
           visibility: "off",
@@ -87,33 +62,59 @@ let interactiveMapData = (window.dataInteractiveMap = {
     },
     {
       featureType: "water",
-      elementType: "geometry.fill",
       stylers: [
         {
-          color: "#AEE8EF",
+          color: "#dff6f8",
         },
-      ],
-    },
-  ],
-  mapDefaultStyle: [
-    {
-      featureType: "all",
-      elementType: "geometry.fill",
-      stylers: [
         {
-          color: "#000",
+          saturation: 25,
+        },
+        {
+          visibility: "simplified",
         },
       ],
     },
     {
+      featureType: "administrative",
+      elementType: "labels",
+      stylers: [
+        {
+          visibility: "off",
+        },
+      ],
+    }, {
+      featureType: "landscape",
+      elementType: "labels",
+      stylers: [
+        {
+          visibility: "off",
+        },
+      ],
+    }, {
       featureType: "water",
-      elementType: "geometry.fill",
+      elementType: "labels",
       stylers: [
         {
-          color: "##ABDBE2",
+          visibility: "off",
         },
       ],
-    },
+    }, {
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+        {
+          visibility: "off",
+        },
+      ],
+    }, {
+      featureType: "transit",
+      elementType: "labels",
+      stylers: [
+        {
+          visibility: "off",
+        },
+      ],
+    }
   ],
   mapStyleSecondLayer: [
     {
@@ -213,126 +214,141 @@ let interactiveMapData = (window.dataInteractiveMap = {
     "Germany",
     "France",
     "Poland",
-    "Singapore"
+    "Singapore",
   ],
-  mapData: [
-    {
-      name: "United States",
-      labelAnchor: [0, 10],
-      circleAnchor: [20, 30],
-      tooltipOffset: [35, 25],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "bottom",
+  mapData: {
+    market: [
+      {
+        name: "United States",
+        labelAnchor: [0, 10],
+        circleAnchor: [20, 30],
+        tooltipOffset: [35, 25],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "bottom",
+        },
+        propertiesNum: 463,
       },
-      propertiesNum: 463,
-    },
-    {
-      name: "Canada",
-      labelAnchor: [-50, 0],
-      circleAnchor: [-45, 15],
-      tooltipOffset: [-30, 10],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "top",
+      {
+        name: "Canada",
+        labelAnchor: [-50, 0],
+        circleAnchor: [-45, 15],
+        tooltipOffset: [-30, 10],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "top",
+        },
+        propertiesNum: 2,
       },
-      propertiesNum: 2,
-    },
-    {
-      name: "China",
-      labelAnchor: [-20, -10],
-      circleAnchor: [-15, -50],
-      tooltipOffset: [3, -50],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "top",
+      {
+        name: "China",
+        labelAnchor: [-20, -10],
+        circleAnchor: [-15, -50],
+        tooltipOffset: [3, -50],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "top",
+        },
+        propertiesNum: 106,
       },
-      propertiesNum: 106,
-    },
-    {
-      name: "India",
-      labelAnchor: [-25, -10],
-      circleAnchor: [-20, 8],
-      tooltipOffset: [4, 5],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "top",
+      {
+        name: "India",
+        labelAnchor: [-25, -10],
+        circleAnchor: [-20, 8],
+        tooltipOffset: [4, 5],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "top",
+        },
+        propertiesNum: 7,
       },
-      propertiesNum: 7,
-    },
-    {
-      name: "Malaysia",
-      labelAnchor: [-20, -10],
-      circleAnchor: [-15, 8],
-      tooltipOffset: [2, 7],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "top",
+      {
+        name: "Malaysia",
+        labelAnchor: [-20, -10],
+        circleAnchor: [-15, 8],
+        tooltipOffset: [2, 7],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "top",
+        },
+        propertiesNum: 17,
       },
-      propertiesNum: 17,
-    },
-    {
-      name: "Japan",
-      labelAnchor: [-10, 0],
-      circleAnchor: [-5, -38],
-      tooltipOffset: [12, -40],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "top",
+      {
+        name: "Japan",
+        labelAnchor: [-10, 0],
+        circleAnchor: [-5, -38],
+        tooltipOffset: [12, -40],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "top",
+        },
+        propertiesNum: 33,
       },
-      propertiesNum: 33,
-    },
-    {
-      name: "Vietnam",
-      labelAnchor: [-10, -10],
-      circleAnchor: [50, -20],
-      tooltipOffset: [68, -21],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "right",
+      {
+        name: "Vietnam",
+        labelAnchor: [-10, -10],
+        circleAnchor: [50, -20],
+        tooltipOffset: [68, -21],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "right",
+        },
+        propertiesNum: 24,
       },
-      propertiesNum: 24,
-    },
-    {
-      name: "Australia",
-      labelAnchor: [-20, -10],
-      circleAnchor: [-15, 5],
-      tooltipOffset: [3, 3],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "right",
+      {
+        name: "Australia",
+        labelAnchor: [-20, -10],
+        circleAnchor: [-15, 5],
+        tooltipOffset: [3, 3],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "right",
+        },
+        propertiesNum: 23,
       },
-      propertiesNum: 23,
-    },{
-      name: "Germany",
-      labelAnchor: [-20, -10],
-      circleAnchor: [-10, -50],
-      tooltipOffset: [5, -50],
-      popupContent: {
-        title: ["AUM", "NUMBER OF PROPERTIES"],
-        unit: ["$", "m", "Properties"],
-        aum: "10,997.69",
-        direction: "right",
+      {
+        name: "Germany",
+        labelAnchor: [-20, -10],
+        circleAnchor: [-10, -50],
+        tooltipOffset: [5, -50],
+        popupContent: {
+          title: ["AUM", "NUMBER OF PROPERTIES"],
+          unit: ["$", "m", "Properties"],
+          aum: "10,997.69",
+          direction: "right",
+        },
+        propertiesNum: 23,
       },
-      propertiesNum: 23,
-    },
-  ],
+    ],
+    sector: [
+      {
+        popupContent: {
+        }
+      }
+    ],
+    platform: [
+      {
+        popupContent: {
+        }
+      }
+    ]
+  },
   properties: [
     {
       name: "Harbourfront Centre",
@@ -429,6 +445,136 @@ let interactiveMapData = (window.dataInteractiveMap = {
       },
     ],
   },
+  filterData: {
+    all: {
+      name: "Select All",
+      id: "all",
+    },
+    filter: {
+      market: [
+        {
+          name: "United States",
+          id: "united-states",
+        },
+        {
+          name: "Canada",
+          id: "canada",
+        },
+        {
+          name: "China",
+          id: "china",
+        },
+        {
+          name: "India",
+          id: "india",
+        },
+        {
+          name: "Malaysia",
+          id: "malaysia",
+        },
+        {
+          name: "Japan",
+          id: "japan",
+        },
+        {
+          name: "Vietnam",
+          id: "vietnam",
+        },
+        {
+          name: "Australia",
+          id: "australia",
+        },
+        {
+          name: "Ireland",
+          id: "ireland",
+        },
+        {
+          name: "Italy",
+          id: "italy",
+        },
+        {
+          name: "South",
+          id: "italy",
+        },
+        {
+          name: "Spain",
+          id: "spain",
+        },
+        {
+          name: "Netherlands",
+          id: "netherlands",
+        },
+        {
+          name: "United Kingdom",
+          id: "united-kingdom",
+        },
+        {
+          name: "Germany",
+          id: "germany",
+        },
+        {
+          name: "France",
+          id: "france",
+        },
+        {
+          name: "Poland",
+          id: "poland",
+        },
+        {
+          name: "Singapore",
+          id: "singapore",
+        },
+      ],
+      sector: [
+        {
+          name: "Office",
+          id: "office",
+        },
+        {
+          name: "Mixed-Use",
+          id: "mixed-use",
+        },
+        {
+          name: "Corporate Housing / Service Apartment",
+          id: "housing",
+        },
+        {
+          name: "Student Accommodation",
+          id: "student-accommodation",
+        },
+        {
+          name: "Retail",
+          id: "retail",
+        },
+        {
+          name: "Logistics",
+          id: "logistics",
+        },
+      ],
+      platform: [
+        {
+          name: "Platform 1",
+          id: "platform-1",
+        },
+        {
+          name: "Platform 2",
+          id: "platform-2",
+        },
+        {
+          name: "Platform 3",
+          id: "platform-3",
+        },
+        {
+          name: "Platform 4",
+          id: "platform-4",
+        },
+        {
+          name: "Platform 5",
+          id: "platform-5",
+        },
+      ],
+    },
+  },
 });
 const propertiesMenu = document.querySelector(
   ".interactive-map-properties-menu"
@@ -449,6 +595,15 @@ const propertiesListingWrapper = document.querySelector(
 );
 const propertiesPaginationItem = document.getElementsByClassName(
   "interactive-map-properties-pagination-item"
+);
+const filterHeader = document.querySelector(
+  ".interactive-map-chart-filter-header span"
+);
+const filterListWrapper = document.querySelector(
+  ".interactive-map-filter-list"
+);
+const filterCheckboxItem = document.getElementsByClassName(
+  "interactive-map-filter-checkbox"
 );
 const propertiesPaginationLeft = document.querySelector(
   ".interactive-map-properties-pagination .pagination-left"
@@ -490,33 +645,46 @@ const chartSize = {
   XL: 150,
 };
 let currentPageNumber = 1;
-let map;
+let map,
+  defaultCenter = { lat: 1.29027, lng: 103.851959 };
 let interactionState = ["default", "hover", "selected"];
 let markersZoomLevel0 = [],
-    markersZoomLevel1 = [], 
-    markersZoomLevel2 = [], 
-    markersZoomLevel3 = [], 
-    geoLayersDefault = [], 
-    geoLayersLevel0 = [], 
-    geoLayersLevel1 = [], 
-    geoLayersLevel2 = [], 
-    geoLayersLevel3 = [], 
-    InfoWindowsLevel0 = [],
-    InfoWindowsLevel1 = [],
-    InfoWindowsLevel2 = [],
-    InfoWindowsLevel3 = [];
-let countriesGeoData = [], 
-    stateGeoData = [], 
-    citiesGeoData = [];
-//----------------------- Defined Variables -------------------------------//
-//*************************************************************************//
-//----------------------- Functions ---------------------------------------//
+  markersZoomLevel1 = [],
+  markersZoomLevel2 = [],
+  markersZoomLevel3 = [],
+  geoLayersDefault = [],
+  geoLayersLevel0 = [],
+  geoLayersLevel1 = [],
+  geoLayersLevel2 = [],
+  geoLayersLevel3 = [],
+  InfoWindowsLevel0 = [],
+  InfoWindowsLevel1 = [],
+  InfoWindowsLevel2 = [],
+  InfoWindowsLevel3 = [];
+let countriesGeoData = [],
+  stateGeoData = [],
+  citiesGeoData = [];
+let colorCode = {
+  vividOrangeDark: "#dd6b0a",
+  vividOrangeLight: "#f3901d",
+  lightGray: "#fbfbfb",
+  darkGray: "#707070",
+  darkBlue: "#7285a1"
+
+  
+}
+//----------------------- Define Variables -------------------------------//
+
+//----------------------- Define Functions ---------------------------------------//
+// Utils //
 function getMediaQuery(property, value) {
   return `(${property}: ${value}px)`;
 }
 function isDesktop() {
   return window.matchMedia(getMediaQuery("min-width", BREAKPOINTS.LG)).matches;
 }
+// Utils //
+// Properties Menu //
 function calculateRequiredPages(data, paginationLimit) {
   let pagesRequired = Math.ceil(data.length / paginationLimit);
   return pagesRequired;
@@ -692,7 +860,9 @@ function PropertiesPropertiesPreviousNext(e, action) {
 
   renderPropertiesList(interactiveMapData.properties, pagination);
 }
-function bindMouseover(
+// Properties Menu //
+// Google Map - Interactive Map //
+function bindMouseoverZoomLevel0(
   dataLayer,
   countryPropertiesNum,
   countryPropertiesNumInfo,
@@ -702,8 +872,9 @@ function bindMouseover(
   dataLayer.addListener("mouseover", (event) => {
     dataLayer.revertStyle();
     dataLayer.overrideStyle(event.feature, {
-      strokeColor: "#F8721E",
-      fillColor: "#F8721E",
+      strokeColor: colorCode.vividOrangeLight,
+      fillColor: colorCode.vividOrangeDark,
+      fillOpacity: 0.6,
     });
   });
 
@@ -720,7 +891,7 @@ function bindMouseover(
     countryPropertiesNumInfo.open(map, countryPropertiesNum);
   });
 }
-function bindMouseout(
+function bindMouseoutZoomLevel0(
   dataLayer,
   countryPropertiesNum,
   countryPropertiesNumInfo,
@@ -739,135 +910,118 @@ function bindMouseout(
 function bindClickEvent(dataLayer, countryPropertiesNum, map, bounds) {
   let offsetLng = 5;
   dataLayer.addListener("click", function (event) {
-    map.setCenter({lat: bounds.getCenter().lat() - offsetLng, lng: bounds.getCenter().lng() - offsetLng});
+    map.setCenter({
+      lat: bounds.getCenter().lat() - offsetLng,
+      lng: bounds.getCenter().lng() - offsetLng,
+    });
     map.setZoom(zoomLevel.LEVEL1);
   });
 
   countryPropertiesNum.addListener("click", function (event) {
-    map.setCenter({lat: bounds.getCenter().lat() - offsetLng, lng: bounds.getCenter().lng() - offsetLng});
+    map.setCenter({
+      lat: bounds.getCenter().lat() - offsetLng,
+      lng: bounds.getCenter().lng() - offsetLng,
+    });
     map.setZoom(zoomLevel.LEVEL1);
   });
-}
-function getZoomByBounds(map, bounds) {
-  var MAX_ZOOM = map.mapTypes.get(map.getMapTypeId()).maxZoom || 21;
-  var MIN_ZOOM = map.mapTypes.get(map.getMapTypeId()).minZoom || 0;
-
-  var ne = map.getProjection().fromLatLngToPoint(bounds.getNorthEast());
-  var sw = map.getProjection().fromLatLngToPoint(bounds.getSouthWest());
-
-  var worldCoordWidth = Math.abs(ne.x - sw.x);
-  var worldCoordHeight = Math.abs(ne.y - sw.y);
-
-  //Fit padding in pixels
-  var FIT_PAD = 40;
-
-  for (var zoom = MAX_ZOOM; zoom >= MIN_ZOOM; --zoom) {
-    if (
-      worldCoordWidth * (1 << zoom) + 2 * FIT_PAD < $(map.getDiv()).width() &&
-      worldCoordHeight * (1 << zoom) + 2 * FIT_PAD < $(map.getDiv()).height()
-    )
-      return zoom;
-  }
-  return 0;
 }
 function fetchStateGeoJson() {
   //----------- Fetch State Geo Json ---------------->
   fetch(stateGeoJson)
-  .then((response) => response.json())
-  .then((data) => {
-    stateGeoData = data;
-    setStateInfo();
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      stateGeoData = data;
+      setStateInfo();
+    });
 }
 function fetchCitiesGeoJson() {
-  
+
 }
 function setCountriesInfo() {
   //----------------------- countriesGeoJson ---------------------------------------//
   fetch(countriesGeoJso)
-  .then((response) => response.json())
-  .then((data) => {
-    data.features.forEach((geoData) => {
-      let countryName = geoData.properties.name;
-      if (interactiveMapData.countryLayer.includes(countryName)) {
-        let mapData = interactiveMapData.mapData.filter((data) => {
-          return data.name == countryName;
-        });
-        let bounds = new google.maps.LatLngBounds();
-        let countryLabelStyle = {
-          text: geoData.properties.name,
-          fontSize: "16px",
-          fontWeight: "bold",
-          color: "#222",
-          textStrokeColor: "#000",
-          textStrokeWeight: 2,
-          textTransform: "uppercase",
-        };
-        if (geoData.geometry.type == "Polygon") {
-          geoData.geometry.coordinates[0].forEach((latlng) => {
-            bounds.extend(new google.maps.LatLng(latlng[1], latlng[0]));
+    .then((response) => response.json())
+    .then((data) => {
+      data.features.forEach((geoData) => {
+        let countryName = geoData.properties.name;
+        if (interactiveMapData.countryLayer.includes(countryName)) {
+          let mapData = interactiveMapData.mapData.market.filter((data) => {
+            return data.name == countryName;
           });
-        } else {
-          geoData.geometry.coordinates.forEach((coordinate) => {
-            coordinate[0].forEach((latlng) => {
+          let dataLayer =  map.data;
+          let bounds = new google.maps.LatLngBounds();
+          let countryLabelStyle = {
+            text: geoData.properties.name,
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#222",
+            textStrokeColor: "#000",
+            textStrokeWeight: 2,
+            textTransform: "uppercase",
+          };
+          if (geoData.geometry.type == "Polygon") {
+            geoData.geometry.coordinates[0].forEach((latlng) => {
               bounds.extend(new google.maps.LatLng(latlng[1], latlng[0]));
             });
-          });
-        }
-        let dataLayer = new google.maps.Data();
-        dataLayer.addGeoJson(geoData, { oWrap: true });
-        dataLayer.setStyle(function (feature) {
-          var color = "#707070";
-          var fillColor = "#FBFBFB";
-          let cursor = "default";
-          let fillOpacity = 0.6;
-
-          if (
-            interactiveMapData.countryLayer.includes(
-              feature.getProperty("name")
-            )
-          ) {
-            color = "#5F728B";
-            fillColor = "#7285A1";
-            cursor = "pointer";
+          } else {
+            geoData.geometry.coordinates.forEach((coordinate) => {
+              coordinate[0].forEach((latlng) => {
+                bounds.extend(new google.maps.LatLng(latlng[1], latlng[0]));
+              });
+            });
           }
-          return {
-            fillColor: fillColor,
-            fillOpacity: fillOpacity,
-            strokeColor: color,
-            strokeWeight: 0.5,
-            cursor: cursor,
-            zIndex: 2,
-          };
-        });
-        dataLayer.setMap(map);
+          dataLayer.addGeoJson(geoData, { oWrap: true });
+          dataLayer.setStyle(function (feature) {
+            var strokeColor = colorCode.darkGray;
+            var fillColor = colorCode.lightGray;
+            let cursor = "default";
+            let fillOpacity = 0.6;
 
-        if(mapData[0]) {
-          countryPropertiesNum = new markerWithLabel.MarkerWithLabel({
-            position: bounds.getCenter(),
-            map: map,
-            icon: " ",
-            labelContent: mapData[0].propertiesNum.toString(),
-            labelClass: "country-circle",
-            labelAnchor: new google.maps.Point(
-              mapData[0].circleAnchor[0],
-              mapData[0].circleAnchor[1]
-            ),
+            if (
+              interactiveMapData.countryLayer.includes(
+                feature.getProperty("name")
+              )
+            ) {
+              fillColor = colorCode.darkBlue;
+              cursor = "pointer";
+            }
+            return {
+              fillColor: fillColor,
+              fillOpacity: fillOpacity,
+              strokeColor: strokeColor,
+              strokeWeight: 0.5,
+              cursor: cursor,
+              zIndex: 2,
+            };
           });
-          countryLabel = new markerWithLabel.MarkerWithLabel({
-            position: bounds.getCenter(),
-            map: map,
-            icon: " ",
-            labelContent: geoData.properties.name,
-            labelClass: "country-label",
-            labelAnchor: new google.maps.Point(
-              mapData[0].labelAnchor[0],
-              mapData[0].labelAnchor[1]
-            ),
-          });
-          countryPropertiesNumInfo = new google.maps.InfoWindow({
-            position: bounds.getCenter(),
-            content: `<div class="country-circle-tooltip-wrapper">
+          dataLayer.setMap(map);
+
+          if (mapData[0]) {
+            countryPropertiesNum = new markerWithLabel.MarkerWithLabel({
+              position: bounds.getCenter(),
+              map: map,
+              icon: " ",
+              labelContent: mapData[0].propertiesNum.toString(),
+              labelClass: "country-circle",
+              labelAnchor: new google.maps.Point(
+                mapData[0].circleAnchor[0],
+                mapData[0].circleAnchor[1]
+              ),
+            });
+            countryLabel = new markerWithLabel.MarkerWithLabel({
+              position: bounds.getCenter(),
+              map: map,
+              icon: " ",
+              labelContent: geoData.properties.name,
+              labelClass: "country-label",
+              labelAnchor: new google.maps.Point(
+                mapData[0].labelAnchor[0],
+                mapData[0].labelAnchor[1]
+              ),
+            });
+            countryPropertiesNumInfo = new google.maps.InfoWindow({
+              position: bounds.getCenter(),
+              content: `<div class="country-circle-tooltip-wrapper">
                             <span></span>
                             <div class="country-circle-tooltip">
                                 <h2>${mapData[0].name}</h2>
@@ -883,85 +1037,94 @@ function setCountriesInfo() {
                                 </div>
                             </div>
                             </div>`,
-            pixelOffset: new google.maps.Size(
-              mapData[0].tooltipOffset[0],
-              mapData[0].tooltipOffset[1]
-            ),
-            disableAutoPan: true,
-          });
-          markersZoomLevel0.push(countryLabel);
-          markersZoomLevel0.push(countryPropertiesNum);
-          InfoWindowsLevel0.push(countryPropertiesNumInfo);
-        
-          geoLayersLevel0.push(dataLayer);
-        
-          bindMouseover(
-            dataLayer,
-            countryPropertiesNum,
-            countryPropertiesNumInfo,
-            map,
-            countryName
-          );
-          bindMouseout(
-            dataLayer,
-            countryPropertiesNum,
-            countryPropertiesNumInfo,
-            map
-          );
-          bindClickEvent(dataLayer, countryPropertiesNum, map, bounds, countryName);
-        }
-      } else {
-        dataLayer = new google.maps.Data();
-        dataLayer.addGeoJson(geoData, { noWrap: true });
-        dataLayer.setStyle(function (feature) {
-          var color = "#707070";
-          var fillColor = "#FBFBFB";
-          let cursor = "default";
-          let fillOpacity = 0.6;
+              pixelOffset: new google.maps.Size(
+                mapData[0].tooltipOffset[0],
+                mapData[0].tooltipOffset[1]
+              ),
+              disableAutoPan: true,
+            });
+            markersZoomLevel0.push(countryPropertiesNum);
+            InfoWindowsLevel0.push(countryPropertiesNumInfo);
+            geoLayersLevel0.push([
+              {
+                name: geoData.properties.name,
+                layer: dataLayer
+              }
+            ]);
 
-          if (
-            interactiveMapData.countryLayer.includes(
-              feature.getProperty("name")
-            )
-          ) {
-            color = "#5F728B";
-            fillColor = "#7285A1";
-            cursor = "pointer";
+            bindMouseoverZoomLevel0(
+              dataLayer,
+              countryPropertiesNum,
+              countryPropertiesNumInfo,
+              map,
+              countryName
+            );
+            bindMouseoutZoomLevel0(
+              dataLayer,
+              countryPropertiesNum,
+              countryPropertiesNumInfo,
+              map
+            );
+            bindClickEvent(
+              dataLayer,
+              countryPropertiesNum,
+              map,
+              bounds,
+              countryName
+            );
           }
-          return {
-            fillColor: fillColor,
-            fillOpacity: fillOpacity,
-            strokeColor: color,
-            strokeWeight: 0.5,
-            cursor: cursor,
-          };
-        });
-        dataLayer.setMap(map);
-        geoLayersDefault.push(dataLayer);
-      }
+        } else {
+          dataLayer = new google.maps.Data();
+          dataLayer.addGeoJson(geoData, { noWrap: true });
+          dataLayer.setStyle(function (feature) {
+            var strokeColor =colorCode.darkGray;
+            var fillColor = colorCode.lightGray;
+            let cursor = "default";
+            let fillOpacity = 0.6;
+
+            if (
+              interactiveMapData.countryLayer.includes(
+                feature.getProperty("name")
+              )
+            ) {
+              color = "#5F728B";
+              fillColor = "#7285A1";
+              cursor = "pointer";
+            }
+            return {
+              fillColor: fillColor,
+              fillOpacity: fillOpacity,
+              strokeColor: strokeColor,
+              strokeWeight: 0.5,
+              cursor: cursor,
+            };
+          });
+          dataLayer.setMap(map);
+          geoLayersDefault.push(dataLayer);
+        }
+      });
     });
-  });
 }
 function showCountriesInfo() {
-  geoLayersLevel0.forEach(function(geoLayerLevel0) {
-    geoLayerLevel0.setMap(map);
-    geoLayerLevel0.revertStyle();
+  geoLayersLevel0.forEach(function (geoLayerLevel0) {
+    geoLayerLevel0[0].layer.setMap(map);
+    geoLayerLevel0[0].layer.revertStyle();
   });
-  markersZoomLevel0.forEach(function(markerZoomLevel0) {
+  markersZoomLevel0.forEach(function (markerZoomLevel0) {
     markerZoomLevel0.setMap(map);
   });
-  InfoWindowsLevel0.forEach(function(InfoWindowLevel0) {
+  InfoWindowsLevel0.forEach(function (InfoWindowLevel0) {
     InfoWindowLevel0.open();
   });
 }
 function removeCountriesInfo() {
-  geoLayersLevel0.forEach(function(geoLayerLevel0) {
-    geoLayerLevel0.setMap(null)
+  geoLayersLevel0.forEach(function (geoLayerLevel0) {
+    geoLayerLevel0[0].layer.setMap(null);
   });
-  markersZoomLevel0.forEach(function(markerZoomLevel0) {
+  markersZoomLevel0.forEach(function (markerZoomLevel0) {
     markerZoomLevel0.setMap(null);
   });
-  InfoWindowsLevel0.forEach(function(InfoWindowLevel0) {
+  InfoWindowsLevel0.forEach(function (InfoWindowLevel0) {
     InfoWindowLevel0.close();
   });
 }
@@ -986,6 +1149,7 @@ function setStateInfo() {
           zIndex: 2,
         };
       });
+
       if (feature.geometry.type == "Polygon") {
         feature.geometry.coordinates[0].forEach((latlng) => {
           bounds.extend(new google.maps.LatLng(latlng[1], latlng[0]));
@@ -1004,81 +1168,80 @@ function setStateInfo() {
       //   labelClass: "state-label",
       // });
       // markersZoomLevel1.push(stateLabel);
-      geoLayersLevel1.push(dataLayer);
+      geoLayersLevel1.push([{
+        name: geoState.name,
+        layer: dataLayer
+      }]);
     });
   });
 }
 function removeStateInfo() {
   geoLayersLevel1.forEach((geoLayerLevel1) => {
-    geoLayerLevel1.setMap(null);
+    geoLayerLevel1[0].layer.setMap(null);
   });
   // markersZoomLevel1.forEach((markerZoomLevel1) => {
   //   markerZoomLevel1.setMap(null);
   // });
 }
 function displayZoomLevel() {
-  map.addListener('zoom_changed', function(event) {
+  map.addListener("zoom_changed", () => {
     let getZoomLevel = map.getZoom();
+    var bounds = map.getBounds();
+    console.log(getZoomLevel);
 
-    if(getZoomLevel >= zoomLevel.LEVEL1 && getZoomLevel <= zoomLevel.LEVEL2) {
-      console.log("ZoomLevel1")
+    if (getZoomLevel >= zoomLevel.LEVEL1 && getZoomLevel <= zoomLevel.LEVEL2) {
+      console.log("ZoomLevel1");
       removeCountriesInfo();
       geoLayersLevel1.forEach((geoLayerLevel1) => {
-        geoLayerLevel1.setMap(map);
+        geoLayerLevel1[0].layer.setMap(map);
       });
       markersZoomLevel1.forEach((markerZoomLevel1) => {
         markerZoomLevel1.setMap(map);
       });
-    } else if(getZoomLevel >= zoomLevel.LEVEL2) {
-      console.log("ZoomLevel2")
+      geoLayersDefault.forEach(function (geoLayerDefault) {
+        geoLayerDefault.setMap(map);
+      });
+    } else if (getZoomLevel >= zoomLevel.LEVEL2) {
+      console.log("ZoomLevel2");
       removeCountriesInfo();
       removeStateInfo();
-      // console.log(map);
-      geoLayersDefault.forEach(function(geoLayerDefault) {
+      geoLayersDefault.forEach(function (geoLayerDefault) {
         geoLayerDefault.setMap(null);
       });
-      map.setStyle(interactiveMapData.mapDefaultStyle);
-    } else if(getZoomLevel >= zoomLevel.LEVEL3) {
-      console.log("ZoomLevel3")
+    } else if (getZoomLevel >= zoomLevel.LEVEL3) {
+      console.log("ZoomLevel3");
     } else {
-      console.log("ZoomLevel0")
+      console.log("ZoomLevel0");
       removeStateInfo();
       showCountriesInfo();
+      geoLayersDefault.forEach(function (geoLayerDefault) {
+        geoLayerDefault.setMap(map);
+      });
     }
   });
 }
 function centerChanged() {
-
   if (map.getCenter().lat() < -85) {
+    google.maps.event.addListenerOnce(map, "center_changed", function () {
+      map.setZoom(3);
+    });
 
-      google.maps.event.addListenerOnce(map, 'center_changed', function () {
-
-          map.setZoom(3);
-
-      });
-
-      map.setCenter(new google.maps.LatLng(-75, 0));
-
+    map.setCenter(new google.maps.LatLng(-75, 0));
   } else if (map.getCenter().lat() > 85) {
+    google.maps.event.addListenerOnce(map, "center_changed", function () {
+      map.setZoom(3);
+    });
 
-      google.maps.event.addListenerOnce(map, 'center_changed', function () {
-
-          map.setZoom(3);
-
-      });
-
-      map.setCenter(new google.maps.LatLng(75, 0));
-
+    map.setCenter(new google.maps.LatLng(75, 0));
   }
-
 }
 function initMap() {
   //----------------------- Init Map ---------------------------------------//
   map = new google.maps.Map(interactiveMap, {
-    zoom: zoomLevel.LEVEL1,
+    zoom: minZoom,
     minZoom: minZoom,
     maxZoom: maxZoom,
-    center: { lat: 1.290270, lng: 103.851959 },
+    center: defaultCenter,
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: false,
@@ -1086,18 +1249,244 @@ function initMap() {
     zoomControl: false,
     // scrollwheel: false,
     disableDoubleClickZoom: true,
-    styles: interactiveMapData.mapStyle,
+    styles: interactiveMapData.mapStyleLayers,
     // restriction: {
     //   latLngBounds: {north: 85, south: -85, west: -70, east:280},
     //   strictBounds: true
     // }
   });
 
-  // fetchStateGeoJson();
-  // setCountriesInfo();
+  fetchStateGeoJson();
+  setCountriesInfo();
+  map.addListener("idle", () => {});
 }
+// Google Map - Interactive Map //
+// Filter Functions //
+function filterCheckboxTemplate(template, filterCheckbox, filterCategory) {
+  const templateClone = template.content.cloneNode(true);
+  const filterCheckboxEl = templateClone.querySelector(
+    ".interactive-map-filter-checkbox"
+  );
+  const filterCheckboxInput = templateClone.querySelector(
+    ".interactive-map-filter-checkbox input"
+  );
+  const filterCheckboxLabel = templateClone.querySelector(
+    ".interactive-map-filter-checkbox label"
+  );
+  filterCheckboxEl.style.display = "none";
+  filterCheckboxEl.setAttribute("data-filter", filterCheckbox.id);
+  filterCheckboxEl.setAttribute("data-category", filterCategory ? filterCategory : "all");
+  filterCheckboxInput.setAttribute("id", filterCheckbox.id);
+  filterCheckboxInput.setAttribute("name", filterCheckbox.id);
+  filterCheckboxLabel.setAttribute("for", filterCheckbox.id);
+  filterCheckboxLabel.innerHTML = filterCheckbox.name;
+
+  return templateClone || null;
+}
+function displayfilterCheckbox(data, category) {
+  const template = document.querySelector("#interactive-map-filter-template");
+
+  data.forEach((filterCheckbox) => {
+    const filterCheckboxItem = filterCheckboxTemplate(template, filterCheckbox, category);
+
+    if (filterCheckboxItem) {
+      const itemWrapper = filterCheckboxItem.querySelector(
+        ".interactive-map-filter-checkbox"
+      );
+      filterListWrapper.append(itemWrapper);
+    }
+  });
+}
+function filterRemoveSelection(countryId) {
+  map.setCenter(defaultCenter);
+  map.setZoom(minZoom);
+
+  geoLayersLevel0.forEach((geoLayerLevel0) => {
+    if(geoLayerLevel0[0].name.toLowerCase().replace(' ', '-') == countryId) {
+      geoLayerLevel0[0].layer.setStyle(() => {
+        let fillColor = colorCode.darkBlue;;
+        let strokeColor = colorCode.darkGray;
+        let fillOpacity = 0.6;
+  
+        return {
+          fillColor: fillColor,
+          fillOpacity: fillOpacity,
+          strokeColor: strokeColor,
+          strokeWeight: 0.5,
+          zIndex: 2,
+        };
+      });
+    }
+  });
+
+  geoLayersLevel1.forEach((geoLayerLevel1) => {
+    if(geoLayerLevel1[0].name.toLowerCase().replace(' ', '-') == countryId) {
+      geoLayerLevel0[0].layer.setStyle(() => {
+        let fillColor = colorCode.darkBlue;;
+        let strokeColor = colorCode.darkGray;
+        let fillOpacity = 0.6;
+  
+        return {
+          fillColor: fillColor,
+          fillOpacity: fillOpacity,
+          strokeColor: strokeColor,
+          strokeWeight: 0.5,
+          zIndex: 2,
+        };
+      });
+    }
+  });
+}
+function filterSelectionAll() {
+  geoLayersLevel0.forEach((geoLayerLevel0) => {
+    geoLayerLevel0[0].layer.setStyle(() => {
+      let fillColor = colorCode.vividOrangeLight;
+      let strokeColor = colorCode.darkGray;
+      let fillOpacity = 0.3;
+
+      return {
+        fillColor: fillColor,
+        fillOpacity: fillOpacity,
+        strokeColor: strokeColor,
+        strokeWeight: 0.5,
+        zIndex: 2,
+      };
+    });
+  });
+
+  geoLayersLevel1.forEach((geoLayerLevel1) => {
+    geoLayerLevel1[0].layer.setStyle(() => {
+      let fillColor = colorCode.vividOrangeLight;
+      let strokeColor = colorCode.darkGray;
+      let fillOpacity = 0.3;
+
+      return {
+        fillColor: fillColor,
+        fillOpacity: fillOpacity,
+        strokeColor: strokeColor,
+        strokeWeight: 0.5,
+        zIndex: 2,
+      };
+    });
+  });
+}
+function filterRemoveAllSelection() {
+  geoLayersLevel0.forEach((geoLayerLevel0) => {
+    geoLayerLevel0[0].layer.setStyle(() => {
+      let fillColor = colorCode.darkBlue;;
+      let strokeColor = colorCode.darkGray;
+      let fillOpacity = 0.6;
+
+      return {
+        fillColor: fillColor,
+        fillOpacity: fillOpacity,
+        strokeColor: strokeColor,
+        strokeWeight: 0.5,
+        zIndex: 2,
+      };
+    });
+  });
+
+  geoLayersLevel1.forEach((geoLayerLevel1) => {
+    geoLayerLevel1[0].layer.setStyle(() => {
+      let fillColor = colorCode.darkBlue;;
+      let strokeColor = colorCode.darkGray;
+      let fillOpacity = 0.6;
+
+      return {
+        fillColor: fillColor,
+        fillOpacity: fillOpacity,
+        strokeColor: strokeColor,
+        strokeWeight: 0.5,
+        zIndex: 2,
+      };
+    });
+  });
+}
+function filterCountrySelection(countryId) {
+  const geocoder = new google.maps.Geocoder();
+
+  geoLayersLevel0.forEach((geoLayerLevel0) => {
+    if(geoLayerLevel0[0].name.toLowerCase().replace(' ', '-') == countryId) {
+      geocoder.geocode({ 'address': geoLayerLevel0[0].name }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          geoLayersLevel1.filter((geoLayerLevel1) => {
+            if(geoLayerLevel1[0].name.toLowerCase() == geoLayerLevel0[0].name.toLowerCase()) {
+              geoLayerLevel1[0].layer.setStyle(() => {
+                let fillColor = colorCode.vividOrangeLight;
+                let strokeColor = colorCode.darkGray;
+                let fillOpacity = 0.3;
+        
+                return {
+                  fillColor: fillColor,
+                  fillOpacity: fillOpacity,
+                  strokeColor: strokeColor,
+                  strokeWeight: 0.5,
+                  zIndex: 2,
+                };
+              });
+            }
+          });
+
+          geoLayerLevel0[0].layer.setStyle(() => {
+            let fillColor = colorCode.vividOrangeLight;
+            let strokeColor = colorCode.darkGray;
+            let fillOpacity = 0.3;
+    
+            return {
+              fillColor: fillColor,
+              fillOpacity: fillOpacity,
+              strokeColor: strokeColor,
+              strokeWeight: 0.5,
+              zIndex: 2,
+            };
+          });
+
+          map.setCenter(results[0].geometry.location);
+          map.setZoom(zoomLevel.LEVEL1);
+        }
+      });
+    }
+  });
+}
+function fliterFunc(e) {
+  e.preventDefault();
+  const filterEl = e.target.parentElement;
+  const inputEl = filterEl.querySelector("input");
+
+  if (inputEl.checked) {
+    inputEl.checked = false;
+
+    if (filterEl.dataset.filter == "all") {
+      for (let i = 0; i < filterCheckboxItem.length; i++) {
+        filterCheckboxItem[i].querySelector("input").checked = false;
+      }
+
+      map.setCenter(defaultCenter);
+      map.setZoom(minZoom);
+      filterRemoveAllSelection();
+    } else {
+      filterRemoveSelection(filterEl.dataset.filter);
+    }
+  } else {
+    inputEl.checked = true;
+
+    if (filterEl.dataset.filter == "all") {
+      for (let i = 0; i < filterCheckboxItem.length; i++) {
+        filterCheckboxItem[i].querySelector("input").checked = true;
+      }
+      map.setCenter(defaultCenter);
+      map.setZoom(minZoom);
+
+      
+    } else {
+      filterCountrySelection(filterEl.dataset.filter);
+    }
+  }
+}
+// Filter Functions //
 //----------------------- Functions ---------------------------------------//
-//*************************************************************************//
+
 //----------------------- Decare Functions -------------------------------//
 if (interactiveMap) {
   initMap();
@@ -1150,10 +1539,16 @@ if (interactiveMapChart) {
   const interactiveMapChartDetails = document.querySelector(
     ".interactiveMapChartDetails ul"
   );
-  const filterBtns = document.querySelectorAll(".interactive-map-chart-filter-header-plus");
-  const filterOverlay = document.querySelector(".interactive-map-chart-filter-overlay");
-  const filterOverlayClose = document.querySelector(".interactive-map-chart-filter-close");
-  
+  const filterBtns = document.querySelectorAll(
+    ".interactive-map-chart-filter-header-plus"
+  );
+  const filterOverlay = document.querySelector(
+    ".interactive-map-chart-filter-overlay"
+  );
+  const filterOverlayClose = document.querySelector(
+    ".interactive-map-chart-filter-close"
+  );
+
   google.charts.load("current", { packages: ["corechart"] });
   google.setOnLoadCallback(interactiveChart);
 
@@ -1195,15 +1590,56 @@ if (interactiveMapChart) {
   }
   interactiveChartDetails();
 
-  filterBtns.forEach(filterBtn => {
-    filterBtn.addEventListener("click", () => {
-      if(filterOverlay.classList.contains("hide")) {
-        filterOverlay.classList.remove('hide');
+  const filterCheckboxAll = filterCheckboxTemplate(
+    document.querySelector("#interactive-map-filter-template"),
+    interactiveMapData.filterData.all
+  );
+
+  const itemAll = filterCheckboxAll.querySelector(
+    ".interactive-map-filter-checkbox"
+  );
+  filterListWrapper.append(itemAll);
+
+  filterBtns.forEach((filterBtn, index) => {
+    const dataFilter = filterBtn.getAttribute("data-filter");
+    
+    if (dataFilter) {
+      displayfilterCheckbox(interactiveMapData.filterData.filter[dataFilter], dataFilter);
+      for (let i = 0; i < filterCheckboxItem.length; i++) {
+        filterCheckboxItem[i]
+          .querySelector("label")
+          .addEventListener("click", fliterFunc);
+      }
+    }
+    
+    filterBtn.addEventListener("click", (event) => {
+      const eventData = event.target.getAttribute("data-filter");
+
+      filterHeader.innerText =
+        dataFilter.charAt(0).toUpperCase() + dataFilter.slice(1);
+
+      if (filterOverlay.classList.contains("hide")) {
+        filterOverlay.classList.remove("hide");
+      }
+
+      if(eventData) {
+        for (let i = 0; i < filterCheckboxItem.length; i++) {
+          if(filterCheckboxItem[i].dataset.category == "all") {
+            filterCheckboxItem[i].style.display = "block";
+          } else {
+            if(filterCheckboxItem[i].dataset.category == eventData) {
+              filterCheckboxItem[i].style.display = "block";
+            } else {
+              filterCheckboxItem[i].style.display = "none";
+            }
+          }
+        }
       }
     });
   });
+
   filterOverlayClose.addEventListener("click", () => {
-    filterOverlay.classList.add('hide');
+    filterOverlay.classList.add("hide");
   });
 }
 //----------------------- Decare Functions -------------------------------//
