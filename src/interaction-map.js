@@ -2001,7 +2001,6 @@ function filterChartDetails(filterEl, data, inputEl) { //Filter chart details & 
 
     // If input checked then check chart properties array total
     if(inputEl.checked) {
-      console.log(filterData[0])
       // Check chart properties array total
       if(chartPropertiesArr.length > 0) {
         for(let i = 1;i < filterData[0].properties.length; i++) {
