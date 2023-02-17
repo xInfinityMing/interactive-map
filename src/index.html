@@ -21,14 +21,16 @@
             <div class="interactive-map-chart-piechart">
               <p class="interactiveMapChartHeading">All Properties</p>
               <div id="interactiveMapChart"></div>
-              <div class="interactiveMapChartTitleLabel"></div>
-              <div class="interactiveMapChartTitle">Total Assets</div>
+              <div class="interactiveMapChartTotalWrapper">
+                <div class="interactiveMapChartTotalLabel"></div>
+                <div class="interactiveMapChartTotal">Total Assets</div>
+              </div>
               <div class="interactiveMapChartDetails">
                 <ul></ul>
               </div>
             </div>
             <div class="interactive-map-chart-filter">
-              <div class="interactive-map-chart-filter-inner">
+              <div class="interactive-map-chart-filter-inner" data-category="market">
                 <div class="interactive-map-chart-filter-header-wrapper">
                   <div class="interactive-map-chart-filter-header">Market</div>
                   <button
@@ -36,9 +38,10 @@
                     data-filter="market"
                   ></button>
                 </div>
-                <div class="interactive-map-chart-filter-list"></div>
+                <div class="interactive-map-chart-filter-list">
+                </div>
               </div>
-              <div class="interactive-map-chart-filter-inner">
+              <div class="interactive-map-chart-filter-inner" data-category="sector">
                 <div class="interactive-map-chart-filter-header-wrapper">
                   <div class="interactive-map-chart-filter-header">Sector</div>
                   <button
@@ -46,9 +49,10 @@
                     data-filter="sector"
                   ></button>
                 </div>
-                <div class="interactive-map-chart-filter-list"></div>
+                <div class="interactive-map-chart-filter-list">
+                </div>
               </div>
-              <div class="interactive-map-chart-filter-inner">
+              <div class="interactive-map-chart-filter-inner" data-category="platform">
                 <div class="interactive-map-chart-filter-header-wrapper">
                   <div class="interactive-map-chart-filter-header">
                     Platform
@@ -58,8 +62,19 @@
                     data-filter="platform"
                   ></button>
                 </div>
-                <div class="interactive-map-chart-filter-list"></div>
+                <div class="interactive-map-chart-filter-list">
+                </div>
               </div>
+              <template id="interactive-map-chart-filter-template">
+                <div class='interactive-map-chart-filter-list-item' data-filter='' data-category=''>
+                  <div class='interactive-map-chart-filter-list-item-close'>
+                    <img src="./assets/close.svg">
+                  </div>
+                  <div class='interactive-map-chart-filter-list-label'>
+                  </div>
+                </div>
+              </template>
+              <a href="#" class="clear-all-filter">Clear all filters</a>
             </div>
           </div>
 
